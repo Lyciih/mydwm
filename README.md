@@ -9,10 +9,8 @@
 如果覺得太暗  
 想變更 ls 指令輸出的資料夾顏色  
 在 .bashrc 中加入以下指令  
-其中 di 代表資料夾的顏色，改變其後的色碼就行  
-LS\_COLORS='di=33:fi=0:ln=31:pi=5:so=5:bd=5:cd=5:or=31:mi=0:ex=35:*.rpm=90'  
-export LS_COLORS  
-
+export LS\_COLORS="$LS\_COLORS:di=01;33"  
+這裡di代表目錄，01是加粗，33是黃色  
 
 # 讓新安裝的程式或可執行檔能被dmenu找到
 1. 先確保目標的權限可被執行   

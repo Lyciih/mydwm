@@ -1,0 +1,10 @@
+#put this file in /usr/share/xsessions/
+[Desktop Entry]
+Name=Dwm
+Comment=the dynamic tiling window manager
+
+#設為你放 dwm.sh 的地方
+Exec=/home/lyciih/github/mydwm/lab/dwm.sh
+
+Icon=dwm
+Type=XSession
