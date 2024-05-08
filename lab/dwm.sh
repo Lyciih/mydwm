@@ -3,7 +3,7 @@
 
 xrandr --output HDMI-A-0 --auto --left-of DVI-D-0
 
-feh --nofehbg --bg-scale --no-xinerama ~/github/mydwm/wallpaper/2-digit.png
+feh --nofehbg --bg-scale --no-xinerama ~/github/mydwm/wallpaper/2-sea.jpg
 picom &
 slstatus &
 
