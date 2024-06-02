@@ -10,6 +10,6 @@ slstatus &
 
 
 
-exec dwm
+exec dwm > ~/dwm.log 2>&1
 
 export LS_COLORS="$LS_COLORS:di=01;33"

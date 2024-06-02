@@ -760,7 +760,10 @@ drawbar(Monitor *m)
 	if ((w = m->ww - tw - x) > bh) {
 		if (m->sel) {
 			drw_setscheme(drw, scheme[m == selmon ? SchemeSel : SchemeNorm]);
+			XSetErrorHandler(xerrordummy);	// 修復youtube某些影片會崩潰的問題
 			drw_text(drw, x, 0, w, bh, lrpad / 2, m->sel->name, 0);
+			XSync(dpy, False);	// 修復youtube某些影片會崩潰的問題
+			XSetErrorHandler(xerror);	// 修復youtube某些影片會崩潰的問題
 			if (m->sel->isfloating)
 				drw_rect(drw, x + boxs, boxs, boxw, boxw, m->sel->isfixed, 0);
 		} else {

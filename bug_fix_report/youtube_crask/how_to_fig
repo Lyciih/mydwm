@@ -1,0 +1,8 @@
+根據這篇的說明
+https://bbs.archlinux.org/viewtopic.php?id=266724
+
+找到這篇討論
+https://groups.google.com/g/wmii/c/7bncCahYIww
+
+根據Alexander Krotov提供的補釘(檔案已複製在本資料夾中供參考)
+修補的部份在dwm.c的第760行附近
