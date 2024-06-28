@@ -21,4 +21,7 @@ sudo ln -s 目標絕對路徑 &nbsp;  &nbsp; /usr/bin/目標名
 or  
 sudo ln -s 目標絕對路徑 &nbsp;  &nbsp; /home/使用者/.local/bin/目標名 
 
-
+#lightdm設定
+將lightdm.conf
+放到
+/etc/lightdm/ &nbsp; 下，用來對不同螢幕數量修改設定

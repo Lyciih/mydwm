@@ -1,14 +1,20 @@
 #!/bin/bash
-# put this file in ~/
 
-xrandr --output HDMI-A-0 --auto --left-of DVI-D-0
+exec 2> ~/github/mydwm/lab/dwm-shell-error.log
 
-feh --nofehbg --bg-scale --no-xinerama ~/github/mydwm/wallpaper/2-sea.jpg
+SCREEN_COUNT=$(xrandr --listmonitors | head -n 1 | awk '{print $2}')
+
+if [ "$SCREEN_COUNT" -eq 2 ]; then
+	xrandr --output HDMI-A-0 --auto --left-of DVI-D-0
+	feh --bg-scale --no-xinerama ~/github/mydwm/wallpaper/2-sea.jpg
+elif [ "$SCREEN_COUNT" -eq 3 ]; then
+	xrandr --output HDMI-A-0 --auto --left-of DVI-D-0
+	xrandr --output DisplayPort-2 --auto --right-of DVI-D-0
+	feh --bg-scale --no-xinerama ~/github/mydwm/wallpaper/2-sea.jpg
+fi
+
 picom &
 slstatus &
-
-
-
 
 exec dwm
 
