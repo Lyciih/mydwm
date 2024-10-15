@@ -13,7 +13,7 @@ elif [ "$SCREEN_COUNT" -eq 3 ]; then
 	feh --bg-scale --no-xinerama ~/github/mydwm/wallpaper/2-sea.jpg
 fi
 
-picom &
+picom --experimental-backends -b # --experimental-backends 讓毛邊效果可以生效。 -b 比起用 & 在後台更穩定
 slstatus &
 
 exec dwm
