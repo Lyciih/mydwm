@@ -13,7 +13,7 @@ elif [ "$SCREEN_COUNT" -eq 3 ]; then
 	feh --bg-scale --no-xinerama ~/github/mydwm/wallpaper/2-sea.jpg
 fi
 
-picom --experimental-backends -b # --experimental-backends 讓毛邊效果可以生效。 -b 比起用 & 在後台更穩定
+picom --experimental-backends & # --experimental-backends 讓毛邊效果可以生效。 -b 比起用 & 在後台更穩定，但有時可能會導致picom崩潰，比如用test.sh開啟八個vulkan視窗再關掉
 slstatus &
 
 exec dwm

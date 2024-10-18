@@ -47,11 +47,14 @@ static const int resizehints = 0;    /* 1 means respect size hints in tiled resi
 static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen window */
 static const int attachbelow = 1; /* 1 means attack after the currently active window */
 
+#include "fibonacci.c"
 static const Layout layouts[] = {
 	/* symbol     arrange function */
+ 	{ "[@]",      spiral },	/* 本來是第四個，移到第一個作為預設 */
 	{ "[]=",      tile },    /* first entry is default */
 	{ "><>",      NULL },    /* no layout function means floating behavior */
 	{ "[M]",      monocle },
+ 	{ "[\\]",      dwindle },	
 };
 
 /* key definitions */
@@ -87,6 +90,8 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
+	{ MODKEY,                       XK_r,      setlayout,      {.v = &layouts[3]} },
+	{ MODKEY|ShiftMask,             XK_r,      setlayout,      {.v = &layouts[4]} },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
@@ -107,12 +112,36 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
 };
 
+/* 新增的函數用來循環切換佈局 */
+void
+cyclelayout(const Arg *arg) {
+    const Layout *l;
+    for (l = (Layout *)layouts; l != selmon->lt[selmon->sellt]; l++);  // 找到當前佈局
+    if (++l == layouts + LENGTH(layouts))  // 如果到達最後一個佈局，則回到第一個佈局
+        l = layouts;
+    setlayout(&((Arg) { .v = l }));  // 切換到下一個佈局
+}
+
+/* 新增的函數用來逆循環切換佈局 */
+void
+cyclelayout_reverse(const Arg *arg) {
+    const Layout *l;
+    for (l = (Layout *)layouts; l != selmon->lt[selmon->sellt]; l++);  // 找到當前佈局
+    if (l == layouts)  // 如果當前佈局是第一個，則切換到最後一個
+        l = layouts + LENGTH(layouts) - 1;
+    else
+        l--;  // 否則，切換到前一個佈局
+    setlayout(&((Arg) { .v = l }));  // 切換到前一個佈局
+}
+
 /* button definitions */
 /* click can be ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle, ClkClientWin, or ClkRootWin */
 static const Button buttons[] = {
 	/* click                event mask      button          function        argument */
-	{ ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
-	{ ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} },
+	//{ ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
+	//{ ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} },
+	{ ClkLtSymbol,          0,              Button1,        cyclelayout,         {0} },  /* 左鍵循環切換佈局 */
+    { ClkLtSymbol,          0,              Button3,        cyclelayout_reverse, {0} },  /* 右鍵逆向循環切換佈局 */
 	{ ClkWinTitle,          0,              Button2,        zoom,           {0} },
 	{ ClkStatusText,        0,              Button2,        spawn,          {.v = termcmd } },
 	{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
